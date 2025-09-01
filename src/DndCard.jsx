@@ -1,13 +1,15 @@
 import React from "react";
 import "./DndCard.css";
 
-function DnDCard({ title, description }) {
+function DndCard({ title, description }) {
   return (
-    <div className="dnd-card">
+    <div className="card">
       <h2 className="card-title">{title}</h2>
-      <p className="card-desc">{description}</p>
+      <div className="card-content">
+        <p>{description}</p>
+      </div>
     </div>
   );
 }
 
-export default DnDCard;
+export default DndCard;
