@@ -1,10 +1,10 @@
 import React from "react";
-import DnDCardList from "./DnDCardList";
+import DndCardList from "./DndCardList";
 
 function App() {
   return (
     <div className="App">
-      <DnDCardList />
+      <DndCardList />
     </div>
   );
 }

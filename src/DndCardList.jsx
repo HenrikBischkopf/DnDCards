@@ -1,30 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import DndCard from "./DndCard";
+import "./DndCardList.css";
 
-function DnDCardList() {
+function DndCardList() {
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.open5e.com/spells/?limit=10")
+    fetch("https://www.dnd5eapi.co/api/spells")
       .then((res) => res.json())
-      .then((data) => setCards(data.results))
-      .catch((err) => console.error(err));
+      .then(async (data) => {
+        //console.log("Spell list:", data.results);
+
+        const details = await Promise.all(
+          data.results.slice(0, 8).map(async (spell) => {
+            const res = await fetch(`https://www.dnd5eapi.co${spell.url}`);
+            const detail = await res.json();
+
+            return detail;
+          })
+        );
+
+        setCards(details);
+      });
   }, []);
 
   return (
-    <section>
-      <h1>DnD Spells</h1>
-      <div className="card-container">
-        {cards.map((card) => (
-          <div key={card.name} className="card">
-            <h2>{card.name}</h2>
-            <p>Level: {card.level}</p>
-            <p>School: {card.school}</p>
-            <p>{card.desc}</p>
-          </div>
-        ))}
-      </div>
-    </section>
+    <div className="card-grid">
+      {cards.map((card) => (
+        <DndCard
+          key={card.index}
+          title={card.name}
+          description={card.desc ? card.desc[0] : "No description"}
+        />
+      ))}
+    </div>
   );
 }
 
-export default DnDCardList;
+export default DndCardList;
