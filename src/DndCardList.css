@@ -7,3 +7,38 @@
   background: #ececec;
   min-height: 100vh;
 }
+
+.pagination {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.pagination button {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid #444;
+  border-radius: 5px;
+  cursor: pointer;
+  background: inherit;
+  color: inherit;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination button:hover {
+  background-color: #646cff;
+  color: white;
+}
+
+.pagination button.active {
+  background-color: #444;
+  color: white;
+  font-weight: bold;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
