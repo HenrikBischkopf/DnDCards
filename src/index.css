@@ -19,6 +19,7 @@ body {
   background-color: #ffffff;
   color: #213547;
   transition: background-color 0.3s, color 0.3s;
+  font-family: "Cinzel", "Uncial Antiqua", serif;
 }
 
 body.dark {
@@ -38,12 +39,16 @@ body.dark {
 ----------------------- */
 .topper {
   width: 100%;
+  box-sizing: border-box;
   padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem 2rem;
+
   background-color: inherit;
   transition: background-color 0.3s, color 0.3s;
+  margin: 0;
 }
 
 /* -----------------------
