@@ -1,0 +1,37 @@
+.landing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  justify-items: center;
+}
+
+.tile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 100%;
+  background: #ececec;
+  border: 2px solid #ccc;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.tile:hover {
+  background: #dcdcdc;
+  transform: translateY(-5px);
+}
+
+body.dark .tile {
+  background: #2a2a2a;
+  border-color: #555;
+}
+
+body.dark .tile:hover {
+  background: #3a3a3a;
+}
