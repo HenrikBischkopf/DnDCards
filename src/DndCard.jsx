@@ -1,13 +1,16 @@
 import React from "react";
 import "./DndCard.css";
 
-function DndCard({ title, description }) {
+function DndCard({ title, description, image }) {
   return (
     <div className="card">
-      <h2 className="card-title">{title}</h2>
-      <div className="card-content">
-        <p>{description}</p>
-      </div>
+      {image && (
+        <div className="card-image">
+          <img src={image} alt={title} />
+        </div>
+      )}
+      <h3>{title}</h3>
+      <p>{description}</p>
     </div>
   );
 }

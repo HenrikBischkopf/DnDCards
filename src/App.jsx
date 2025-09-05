@@ -10,7 +10,7 @@ function App() {
     <Router>
       <div className="App">
         <div className="topper">
-          <h1>D&D Spells</h1>
+          <h1>D&D Reference</h1>
           <DarkModeToggle />
         </div>
         <Routes>
@@ -18,6 +18,18 @@ function App() {
           <Route
             path="/spells"
             element={<DndCardList endpoint="/api/spells" />}
+          />
+          <Route
+            path="/monsters"
+            element={<DndCardList endpoint="/api/monsters" />}
+          />
+          <Route
+            path="/equipment"
+            element={<DndCardList endpoint="/api/equipment" />}
+          />
+          <Route
+            path="/classes"
+            element={<DndCardList endpoint="/api/classes" />}
           />
         </Routes>
       </div>
