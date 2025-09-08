@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import DndCard from "./DndCard";
+import SearchBar from "./SearchBar";
 import "./DndCardList.css";
 
 function DndCardList({ endpoint }) {
   const [cards, setCards] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const cardsPerPage = 10;
+  const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
+  const cardsPerPage = 10;
 
   useEffect(() => {
     async function fetchData() {
@@ -35,13 +37,23 @@ function DndCardList({ endpoint }) {
     fetchData();
   }, [endpoint]);
 
-  const totalPages = Math.ceil(cards.length / cardsPerPage);
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [query]);
+
+  const filteredCards = cards.filter((card) =>
+    card.name.toLowerCase().includes(query.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
-  const currentCards = cards.slice(startIndex, endIndex);
+  const currentCards = filteredCards.slice(startIndex, endIndex);
 
   return (
     <div>
+      <SearchBar query={query} setQuery={setQuery} />
+
       <div className="card-grid">
         {loading ? (
           <p>Loading...</p>
