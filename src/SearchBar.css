@@ -1,0 +1,51 @@
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.search-bar input {
+  width: 60%;
+  max-width: 400px;
+  padding: 0.6rem 1rem;
+  border: 3px solid #8b5e3c; /* dark brown frame */
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: "Cinzel", serif;
+  background-color: #fdf6e3; /* parchment */
+  color: #3e2c1c;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.search-bar input:focus {
+  border-color: goldenrod;
+  box-shadow: 0 0 8px goldenrod;
+}
+
+body.dark .search-bar input {
+  background-color: #2a2a2a;
+  border-color: #555;
+  color: #f5f5f5;
+}
+And your SearchBar.jsx could look like this:
+
+jsx
+Code kopieren
+import React from "react";
+import "./SearchBar.css";
+
+function SearchBar({ query, setQuery }) {
+  return (
+    <div className="search-bar">
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search..."
+      />
+    </div>
+  );
+}
+
+export default SearchBar;
