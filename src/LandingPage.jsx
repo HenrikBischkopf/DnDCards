@@ -17,6 +17,9 @@ function LandingPage() {
       <Link to="/equipment" className="tile">
         ⚔️ Equipment
       </Link>
+      <Link to="/favorites" className="tile">
+        ⭐ Favorites
+      </Link>
     </div>
   );
 }

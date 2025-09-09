@@ -63,6 +63,7 @@ function DndCardList({ endpoint }) {
           currentCards.map((card) => (
             <DndCard
               key={card.index}
+              card={card}
               title={card.name}
               description={
                 endpoint === "/api/spells"
