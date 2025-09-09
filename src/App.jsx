@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DndCardList from "./DndCardList";
 import DarkModeToggle from "./DarkModeToggle";
 import LandingPage from "./LandingPage";
+import FavoritesPage from "./FavoritesPage";
 import "./index.css";
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
             path="/classes"
             element={<DndCardList endpoint="/api/classes" />}
           />
+          <Route path="/favorites" element={<FavoritesPage />} />
         </Routes>
       </div>
     </Router>
