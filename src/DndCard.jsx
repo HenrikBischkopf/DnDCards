@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FavoritesContext } from "./FavoritesContext";
 import "./DndCard.css";
 
-function DndCard({ title, description, image, card }) {
-  const { favorites, toggleFavorite } = React.useContext(FavoritesContext);
-  const isFavorite = favorites.some((fav) => fav.index === card.index);
+function DndCard({ card, title, description, image }) {
+  const { favorites, toggleFavorite } = useContext(FavoritesContext || {});
+  const item = card || { index: title, name: title };
+  const isFavorite = favorites?.some((fav) => fav.index === item.index);
+
   return (
     <div className="card">
       {image && (
@@ -12,11 +14,15 @@ function DndCard({ title, description, image, card }) {
           <img src={image} alt={title} />
         </div>
       )}
-      <h3>{title}</h3>
-      <p>{description}</p>
-      <button onClick={() => toggleFavorite(card)}>
-        {isFavorite ? "★ Remove from Favorites" : "☆ Add to Favorites"}
-      </button>
+
+      <h3 className="card-title">{title || item.name}</h3>
+      <p className="card-desc">{description}</p>
+
+      <div style={{ marginTop: "auto" }}>
+        <button className="fav-btn" onClick={() => toggleFavorite(item)}>
+          {isFavorite ? "★ Remove" : "☆ Add"}
+        </button>
+      </div>
     </div>
   );
 }
