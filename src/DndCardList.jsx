@@ -11,6 +11,9 @@ function DndCardList({ endpoint }) {
   const cardsPerPage = 10;
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [query]);
+  useEffect(() => {
     async function fetchData() {
       setLoading(true);
       try {
