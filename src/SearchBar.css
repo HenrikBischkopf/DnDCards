@@ -2,17 +2,18 @@
   display: flex;
   justify-content: center;
   margin: 1.5rem 0;
+  position: relative;
 }
 
 .search-bar input {
   width: 60%;
   max-width: 400px;
   padding: 0.6rem 1rem;
-  border: 3px solid #8b5e3c; /* dark brown frame */
+  border: 3px solid #8b5e3c;
   border-radius: 8px;
   font-size: 1rem;
   font-family: "Cinzel", serif;
-  background-color: #fdf6e3; /* parchment */
+  background-color: #fdf6e3;
   color: #3e2c1c;
   outline: none;
   transition: all 0.2s ease-in-out;
@@ -28,24 +29,41 @@ body.dark .search-bar input {
   border-color: #555;
   color: #f5f5f5;
 }
-And your SearchBar.jsx could look like this:
 
-jsx
-Code kopieren
-import React from "react";
-import "./SearchBar.css";
-
-function SearchBar({ query, setQuery }) {
-  return (
-    <div className="search-bar">
-      <input
-        type="text"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search..."
-      />
-    </div>
-  );
+.history-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 400px;
+  background-color: #fdf6e3;
+  border: 2px solid #8b5e3c;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  font-family: "Cinzel", serif;
+  color: #3e2c1c;
 }
 
-export default SearchBar;
+body.dark .history-dropdown {
+  background-color: #2a2a2a;
+  border-color: #555;
+  color: #f5f5f5;
+}
+
+.history-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.history-item:hover {
+  background-color: rgba(139, 94, 60, 0.2);
+}
+
+body.dark .history-item:hover {
+  background-color: rgba(255, 215, 0, 0.2);
+}
