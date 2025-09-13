@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import SurpriseMeButton from "./SurpriseMeButton";
 import "./LandingPage.css";
 
 function LandingPage() {
@@ -20,6 +21,7 @@ function LandingPage() {
       <Link to="/favorites" className="tile">
         ⭐ Favorites
       </Link>
+      <SurpriseMeButton />
     </div>
   );
 }
