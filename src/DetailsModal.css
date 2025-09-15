@@ -1,0 +1,90 @@
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(20, 20, 20, 0.7); /* dark transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+/* Modal content */
+.modal-content {
+  background: #fdf6e3; /* parchment */
+  border: 6px solid #8b5e3c; /* dark brown frame */
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4), 3px 3px 20px rgba(0, 0, 0, 0.6);
+  font-family: "Uncial Antiqua", serif;
+  color: #3e2c1c;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Close button */
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #8b5e3c;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: goldenrod;
+}
+
+/* Title */
+.modal-content h2 {
+  margin-top: 0;
+  font-size: 1.6rem;
+  text-align: center;
+  border-bottom: 2px solid #8b5e3c;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Body text */
+.modal-content p {
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+/* Dark mode */
+body.dark .modal-content {
+  background-color: #2a2a2a;
+  border-color: #555;
+  color: #f5f5f5;
+}
+
+body.dark .modal-close {
+  color: #f5f5f5;
+}
+
+body.dark .modal-close:hover {
+  color: goldenrod;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

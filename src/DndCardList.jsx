@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DndCard from "./DndCard";
 import SearchBar from "./SearchBar";
+import DetailsModal from "./DetailsModal";
 import "./DndCardList.css";
 
 function DndCardList({ endpoint }) {
@@ -9,6 +10,7 @@ function DndCardList({ endpoint }) {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
   const cardsPerPage = 10;
+  const [selectedCard, setSelectedCard] = useState(null);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -64,27 +66,29 @@ function DndCardList({ endpoint }) {
           <p>No items found.</p>
         ) : (
           currentCards.map((card) => (
-            <DndCard
-              key={card.index}
-              card={card}
-              title={card.name}
-              description={
-                endpoint === "/api/spells"
-                  ? card.desc?.[0] || "No description"
-                  : endpoint === "/api/classes"
-                  ? `Hit Die: d${card.hit_die}`
-                  : endpoint === "/api/monsters"
-                  ? card.size && card.type
-                    ? `${card.size} ${card.type}`
-                    : "Monster"
-                  : "No description available"
-              }
-              image={
-                endpoint === "/api/monsters" && card.image
-                  ? `https://www.dnd5eapi.co${card.image}`
-                  : null
-              }
-            />
+            <div key={card.index} onClick={() => setSelectedCard(card)}>
+              <DndCard
+                key={card.index}
+                card={card}
+                title={card.name}
+                description={
+                  endpoint === "/api/spells"
+                    ? card.desc?.[0] || "No description"
+                    : endpoint === "/api/classes"
+                    ? `Hit Die: d${card.hit_die}`
+                    : endpoint === "/api/monsters"
+                    ? card.size && card.type
+                      ? `${card.size} ${card.type}`
+                      : "Monster"
+                    : "No description available"
+                }
+                image={
+                  endpoint === "/api/monsters" && card.image
+                    ? `https://www.dnd5eapi.co${card.image}`
+                    : null
+                }
+              />
+            </div>
           ))
         )}
       </div>
@@ -114,6 +118,11 @@ function DndCardList({ endpoint }) {
           Next
         </button>
       </section>
+      <DetailsModal
+        card={selectedCard}
+        endpoint={endpoint}
+        onClose={() => setSelectedCard(null)}
+      />
     </div>
   );
 }
