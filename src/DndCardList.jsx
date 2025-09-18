@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DndCard from "./DndCard";
 import SearchBar from "./SearchBar";
 import DetailsModal from "./DetailsModal";
+import FilterBar from "./FilterBar";
 import "./DndCardList.css";
 
 function DndCardList({ endpoint }) {
@@ -12,9 +13,17 @@ function DndCardList({ endpoint }) {
   const cardsPerPage = 10;
   const [selectedCard, setSelectedCard] = useState(null);
 
+  const [filters, setFilters] = useState({
+    level: "",
+    school: "",
+    size: "",
+    type: "",
+  });
+
   useEffect(() => {
     setCurrentPage(1);
   }, [query]);
+
   useEffect(() => {
     async function fetchData() {
       setLoading(true);
@@ -46,9 +55,25 @@ function DndCardList({ endpoint }) {
     setCurrentPage(1);
   }, [query]);
 
-  const filteredCards = cards.filter((card) =>
-    card.name.toLowerCase().includes(query.toLowerCase())
-  );
+  const filteredCards = cards.filter((card) => {
+    const matchesQuery = card.name.toLowerCase().includes(query.toLowerCase());
+
+    let matchesFilter = true;
+    if (endpoint === "/api/spells") {
+      if (filters.level && card.level !== parseInt(filters.level))
+        matchesFilter = false;
+      if (filters.school && card.school?.name.toLowerCase() !== filters.school)
+        matchesFilter = false;
+    }
+    if (endpoint === "/api/monsters") {
+      if (filters.size && card.size?.toLowerCase() !== filters.size)
+        matchesFilter = false;
+      if (filters.type && card.type?.toLowerCase() !== filters.type)
+        matchesFilter = false;
+    }
+
+    return matchesQuery && matchesFilter;
+  });
 
   const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
   const startIndex = (currentPage - 1) * cardsPerPage;
@@ -58,6 +83,12 @@ function DndCardList({ endpoint }) {
   return (
     <div>
       <SearchBar query={query} setQuery={setQuery} />
+
+      <FilterBar
+        filters={filters}
+        setFilters={setFilters}
+        endpoint={endpoint}
+      />
 
       <div className="card-grid">
         {loading ? (
@@ -118,6 +149,7 @@ function DndCardList({ endpoint }) {
           Next
         </button>
       </section>
+
       <DetailsModal
         card={selectedCard}
         endpoint={endpoint}
