@@ -3,6 +3,7 @@ import DndCard from "./DndCard";
 import SearchBar from "./SearchBar";
 import DetailsModal from "./DetailsModal";
 import FilterBar from "./FilterBar";
+import SortBar from "./SortBar";
 import "./DndCardList.css";
 
 function DndCardList({ endpoint }) {
@@ -12,6 +13,44 @@ function DndCardList({ endpoint }) {
   const [loading, setLoading] = useState(true);
   const cardsPerPage = 10;
   const [selectedCard, setSelectedCard] = useState(null);
+  const [sortOption, setSortOption] = useState("");
+
+  const applySorting = (cards) => {
+    let sorted = [...cards];
+    switch (sortOption) {
+      case "name-asc":
+        sorted.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+      case "name-desc":
+        sorted.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+      case "level-asc":
+        sorted.sort((a, b) => (a.level || 0) - (b.level || 0));
+        break;
+      case "level-desc":
+        sorted.sort((a, b) => (b.level || 0) - (a.level || 0));
+        break;
+      case "cr-asc":
+        sorted.sort(
+          (a, b) => (a.challenge_rating || 0) - (b.challenge_rating || 0)
+        );
+        break;
+      case "cr-desc":
+        sorted.sort(
+          (a, b) => (b.challenge_rating || 0) - (a.challenge_rating || 0)
+        );
+        break;
+      case "hitdie-asc":
+        sorted.sort((a, b) => (a.hit_die || 0) - (b.hit_die || 0));
+        break;
+      case "hitdie-desc":
+        sorted.sort((a, b) => (b.hit_die || 0) - (a.hit_die || 0));
+        break;
+      default:
+        break;
+    }
+    return sorted;
+  };
 
   const [filters, setFilters] = useState({
     level: "",
@@ -75,10 +114,12 @@ function DndCardList({ endpoint }) {
     return matchesQuery && matchesFilter;
   });
 
-  const totalPages = Math.ceil(filteredCards.length / cardsPerPage);
+  const sortedCards = applySorting(filteredCards);
+
+  const totalPages = Math.ceil(sortedCards.length / cardsPerPage);
   const startIndex = (currentPage - 1) * cardsPerPage;
   const endIndex = startIndex + cardsPerPage;
-  const currentCards = filteredCards.slice(startIndex, endIndex);
+  const currentCards = sortedCards.slice(startIndex, endIndex);
 
   return (
     <div>
@@ -89,7 +130,11 @@ function DndCardList({ endpoint }) {
         setFilters={setFilters}
         endpoint={endpoint}
       />
-
+      <SortBar
+        sortOption={sortOption}
+        setSortOption={setSortOption}
+        endpoint={endpoint}
+      />
       <div className="card-grid">
         {loading ? (
           <p>Loading...</p>
