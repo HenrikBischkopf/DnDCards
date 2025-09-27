@@ -1,0 +1,25 @@
+.sort-bar {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  font-family: "Cinzel", serif;
+}
+
+.sort-bar label {
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.sort-bar select {
+  padding: 0.4rem 0.8rem;
+  border: 2px solid #8b5e3c;
+  border-radius: 6px;
+  background-color: #fdf6e3;
+  color: #3e2c1c;
+}
+
+body.dark .sort-bar select {
+  background-color: #2a2a2a;
+  border-color: #555;
+  color: #f5f5f5;
+}
