@@ -16,7 +16,7 @@ function DndCard({ card, title, description, image }) {
       )}
 
       <h3 className="card-title">{title || item.name}</h3>
-      <p className="card-desc">{description}</p>
+      <p className="description">{description}</p>
 
       <div style={{ marginTop: "auto" }}>
         <button className="fav-btn" onClick={() => toggleFavorite(item)}>
