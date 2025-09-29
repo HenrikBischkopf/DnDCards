@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar";
 import DetailsModal from "./DetailsModal";
 import FilterBar from "./FilterBar";
 import SortBar from "./SortBar";
+import CompareModal from "./CompareModal";
 import "./DndCardList.css";
 
 function DndCardList({ endpoint }) {
@@ -14,6 +15,16 @@ function DndCardList({ endpoint }) {
   const cardsPerPage = 10;
   const [selectedCard, setSelectedCard] = useState(null);
   const [sortOption, setSortOption] = useState("");
+  const [showCompare, setShowCompare] = useState(false);
+  const [selectedCards, setSelectedCards] = useState([]);
+
+  const toggleCardSelection = (card) => {
+    if (selectedCards.some((c) => c.index === card.index)) {
+      setSelectedCards(selectedCards.filter((c) => c.index !== card.index));
+    } else if (selectedCards.length < 2) {
+      setSelectedCards([...selectedCards, card]);
+    }
+  };
 
   const applySorting = (cards) => {
     let sorted = [...cards];
@@ -142,7 +153,16 @@ function DndCardList({ endpoint }) {
           <p>No items found.</p>
         ) : (
           currentCards.map((card) => (
-            <div key={card.index} onClick={() => setSelectedCard(card)}>
+            <div
+              key={card.index}
+              className={
+                selectedCards.some((c) => c.index === card.index)
+                  ? "selected"
+                  : ""
+              }
+              onClick={() => toggleCardSelection(card)}
+              onDoubleClick={() => setSelectedCard(card)} // keep single-card modal on double-click
+            >
               <DndCard
                 key={card.index}
                 card={card}
@@ -168,6 +188,21 @@ function DndCardList({ endpoint }) {
           ))
         )}
       </div>
+      {selectedCards.length === 2 && (
+        <button className="compare-btn" onClick={() => setShowCompare(true)}>
+          Compare
+        </button>
+      )}
+      {showCompare && (
+        <CompareModal
+          cards={selectedCards}
+          endpoint={endpoint}
+          onClose={() => {
+            setShowCompare(false);
+            setSelectedCards([]);
+          }}
+        />
+      )}
 
       <section className="pagination">
         <button

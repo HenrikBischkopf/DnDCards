@@ -43,3 +43,30 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.selected {
+  border: 3px solid goldenrod;
+  border-radius: 8px;
+}
+
+.compare-btn-container {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.compare-btn {
+  background: goldenrod;
+  border: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: "Cinzel", serif;
+  font-weight: bold;
+  color: #fff;
+  transition: background 0.2s;
+}
+
+.compare-btn:hover {
+  background: darkgoldenrod;
+}
